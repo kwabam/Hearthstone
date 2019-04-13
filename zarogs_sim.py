@@ -64,6 +64,7 @@ def zarogs_round(cards=data):
         discovered.append(card)
     return discovered
 
+
 def main():
     rogue = True
     leg_minion = []
@@ -92,19 +93,25 @@ def main():
                 counters[card['set']] = 1
     print(counters)
     print(len(std_leg), 'legendaries in standard')
-    nums = [0,0,0]
+    combinations = []
+    for i in range(len(std_leg)):
+        for j in range(1, len(std_leg)):
+            for k in range (2, len(std_leg)):
+                combinations.append((data[i], data[j], [data[k]]))
 
-    for card in std_leg:
-        if card['attack'] >= 7:
-            nums[0] += 1
-        try:
-            if 'RUSH' in card['mechanics']:
-                nums[1] += 1
-        except:
-            pass
-        if card['attack'] + card['health'] <= 4:
-            nums[2] += 1
-    print(nums)
+
+    # nums = [0,0,0]
+    # for card in std_leg:
+    #     if card['attack'] >= 7:
+    #         nums[0] += 1
+    #     try:
+    #         if 'RUSH' in card['mechanics']:
+    #             nums[1] += 1
+    #     except:
+    #         pass
+    #     if card['attack'] + card['health'] <= 4:
+    #         nums[2] += 1
+    # print(nums)
 
     #standard minions
     # a = 0
@@ -187,17 +194,17 @@ def main():
     print("Picking highest health")
     print("Average total stats:", sums[2])
     print("Attack: ", stats[2][0], "Health: ", stats[2][1])#print statements
-
-    print(x)
-    print(y)
-    samples = np.array([x, y], np.int32)
-    print(type(samples))
-    densObj = kde(samples)
-    vals = densObj.evaluate(samples)
-    norm = Normalize(vmin=vals.min(), vmax=vals.max())
-    colours = [cm.ScalarMappable(norm=norm, cmap='jet').to_rgba(val) for val in vals]
-    plt.scatter(samples[0], samples[1], color=colours, s = 1000)
-    plt.show()
+    #
+    # print(x)
+    # print(y)
+    # samples = np.array([x, y], np.int32)
+    # print(type(samples))
+    # densObj = kde(samples)
+    # vals = densObj.evaluate(samples)
+    # norm = Normalize(vmin=vals.min(), vmax=vals.max())
+    # colours = [cm.ScalarMappable(norm=norm, cmap='jet').to_rgba(val) for val in vals]
+    # plt.scatter(samples[0], samples[1], color=colours, s = 1000)
+    # plt.show()
 
     # with open('wild_data.json', 'w') as outfile:
     #   json.dump(combos[:10000], outfile, indent=2)
